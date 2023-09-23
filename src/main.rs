@@ -1,3 +1,4 @@
+#![allow(non_snake_case)]
 use std::io;
 #[derive(Debug)]
 struct Client {
@@ -8,9 +9,9 @@ struct Client {
     condition: String,
 }
 impl Client {
-    fn bmi(&self) -> i32 {
+    pub fn bmi(&self) -> f32 {
         //return self.weight / self.height.powf(2.0);
-        (self.weight * 10000.0 / (self.height * self.height)) as i32
+        self.weight * 10000.0 / (self.height * self.height)
     }
     /*fn longevity(&self) -> bool {
         if self.diet == "vegan" {
@@ -21,9 +22,9 @@ impl Client {
     }*/
     fn health(&mut self) {
         match self.bmi() {
-            x if x > 0 && x <= 18 => self.condition = "underweight range".to_string(),
-            x if x > 18 && x <= 25 => self.condition = "Healthy Weight range".to_string(),
-            x if x > 25 && x <= 30 => self.condition = "overweight range".to_string(),
+            1.0..=18.5 => self.condition = "underweight range".to_string(),
+            18.5..=24.9 => self.condition = "Healthy Weight range".to_string(),
+            24.9..=29.9 => self.condition = "overweight range".to_string(),
             _ => self.condition = "error".to_string(),
         }
     }
